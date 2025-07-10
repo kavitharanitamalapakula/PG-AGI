@@ -35,7 +35,11 @@ export const fetchSocialPosts = createAsyncThunk("socialPosts/fetch", async () =
 const socialPostSlice = createSlice({
     name: "socialPosts",
     initialState,
-    reducers: {},
+    reducers: {
+        reorderPosts: (state, action) => {
+            state.posts = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchSocialPosts.pending, (state) => {
@@ -52,5 +56,7 @@ const socialPostSlice = createSlice({
             });
     },
 });
+
+export const { reorderPosts } = socialPostSlice.actions;
 
 export default socialPostSlice.reducer;

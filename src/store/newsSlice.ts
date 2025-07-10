@@ -23,10 +23,11 @@ const initialState: NewsState = {
     error: null,
 };
 
+console.log(process.env.NEXT_PUBLIC_NEWS_API_KEY)
 // Async thunk
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
     const res = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=5&apiKey=${process.env.NEWS_API_KEY}`
+        `https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=5&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`
     );
     const data = await res.json();
 
@@ -37,7 +38,11 @@ export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
 const newsSlice = createSlice({
     name: "news",
     initialState,
-    reducers: {},
+    reducers: {
+        reorderArticles: (state, action: PayloadAction<Article[]>) => {
+            state.articles = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchNews.pending, (state) => {
@@ -54,5 +59,7 @@ const newsSlice = createSlice({
             });
     },
 });
+
+export const { reorderArticles } = newsSlice.actions;
 
 export default newsSlice.reducer;

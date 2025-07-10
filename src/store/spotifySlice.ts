@@ -26,8 +26,11 @@ const spotifySlice = createSlice({
         setTracks: (state, action: PayloadAction<Track[]>) => {
             state.tracks = action.payload;
         },
+        reorderTracks: (state, action: PayloadAction<Track[]>) => {
+            state.tracks = action.payload;
+        },
     },
 });
 
-export const { setTracks } = spotifySlice.actions;
+export const { setTracks, reorderTracks } = spotifySlice.actions;
 export default spotifySlice.reducer;
