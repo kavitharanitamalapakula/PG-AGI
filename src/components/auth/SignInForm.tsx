@@ -2,12 +2,13 @@
 import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { useSearchParams } from "next/navigation";
 
 export default function SignInForm() {
     const [email, setEmail] = useState("");
@@ -26,7 +27,17 @@ export default function SignInForm() {
             setMessageType("");
         }, 3000);
     }
+    const searchParams = useSearchParams();
+    const redirectMessage = searchParams.get("message");
 
+    useEffect(() => {
+        if (redirectMessage === "unauthorized") {
+            showMessage("Please sign in to access the dashboard.", "error");
+        }
+        if (redirectMessage === "logout") {
+            showMessage("You have been logged out successfully.", "success");
+        }
+    }, [redirectMessage]);
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
