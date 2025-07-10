@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "@/store";
+import { RootState, AppDispatch } from "@/store/store";
 import { fetchNews } from "@/store/newsSlice";
 
 const NewsCard: React.FC = () => {
