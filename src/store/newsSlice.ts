@@ -26,7 +26,7 @@ const initialState: NewsState = {
 // Async thunk
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
     const res = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=5&apiKey=18c37be0247745b196a06665397c0089`
+        `https://newsapi.org/v2/top-headlines?country=us&category=technology&pageSize=5&apiKey=${process.env.NEWS_API_KEY}`
     );
     const data = await res.json();
 
