@@ -53,18 +53,6 @@ export default function SignInForm() {
             return;
         }
 
-        const demoCredentials = {
-            email: "user@gmail.com",
-            password: "User@123"
-        };
-
-        if (email === demoCredentials.email && password === demoCredentials.password) {
-            showMessage("Login successful with demo credentials!", "success");
-
-            setTimeout(() => router.push("/"), 1500);
-            return;
-        }
-
         setLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
@@ -142,6 +130,13 @@ export default function SignInForm() {
                                     {message}
                                 </div>
                             )}
+                            <div className="text-center">
+                                <p className="m-0 text-red-600 font-semibold">User Credentials</p>
+                                <ul className="list-none m-0">
+                                    <li><span className="text-green-600">Email:</span> <span className="text-green-600">user@gmail.com</span></li>
+                                    <li><span className="text-green-600">Password:</span> <span className="text-green-600">User@123</span></li>
+                                </ul>
+                            </div>
 
                             <button
                                 type="submit"
