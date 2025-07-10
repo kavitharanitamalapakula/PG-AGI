@@ -70,9 +70,14 @@ export default function SignUpForm() {
       setFullName("")
       setPassword("")
 
-    } catch (error: any) {
-      console.error("Error: ", error.message);
-      showMessage("Oops! " + error.message, "error");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error: ", error.message);
+        showMessage("Oops! " + error.message, "error");
+      } else {
+        console.error("Unexpected error", error);
+        showMessage("Oops! An unexpected error occurred.", "error");
+      }
     }
   };
 
@@ -106,7 +111,6 @@ export default function SignUpForm() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="User Name"
-              required
             />
           </div>
 
@@ -120,7 +124,6 @@ export default function SignUpForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter email"
-              required
             />
           </div>
 
@@ -134,7 +137,6 @@ export default function SignUpForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              required
             />
           </div>
           {message && (

@@ -1,7 +1,7 @@
 "use client";
 import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
-import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
+import { ChevronLeftIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -53,7 +53,7 @@ export default function SignInForm() {
         }
 
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            .then(() => {
                 showMessage("Login successful!", "success");
                 setEmail("")
                 setPassword("")
