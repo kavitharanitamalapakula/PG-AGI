@@ -1,17 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const spinnerVariants = {
-    animate: {
-        rotate: 360,
-        transition: {
-            repeat: Infinity,
-            duration: 1,
-            ease: "linear",
-        },
-    },
-};
-
 const LoadingSpinner: React.FC<{ size?: number; color?: string }> = ({
     size = 24,
     color = "#2563eb",
@@ -22,8 +11,12 @@ const LoadingSpinner: React.FC<{ size?: number; color?: string }> = ({
             height={size}
             viewBox="0 0 24 24"
             fill="none"
-            variants={spinnerVariants}
-            animate="animate"
+            animate={{ rotate: 360 }}
+            transition={{
+                repeat: Infinity,
+                duration: 1,
+                ease: "linear",
+            }}
             className="inline-block"
         >
             <circle
