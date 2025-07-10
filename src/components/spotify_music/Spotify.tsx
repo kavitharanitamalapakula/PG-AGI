@@ -64,7 +64,7 @@ export default function SpotifyTrackGrid() {
           },
           artists: album.artists.map((artist: any) => ({
             name: artist.name,
-            uri: artist.uri, // spotify:artist:xyz
+            uri: artist.uri,
           })),
           preview_url: null,
         }));
@@ -101,7 +101,6 @@ export default function SpotifyTrackGrid() {
           <p className="text-sm text-gray-400">
             {track.artists.map((a) => a.name).join(", ")}
           </p>
-          {/* Play Button */}
           <button
             onClick={() => handlePlayClick(track.artists[0]?.uri)}
             className="mt-4 flex items-center gap-2 text-green-400 hover:text-green-300 transition"

@@ -1,4 +1,3 @@
-// src/store/socialPostSlice.ts
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export interface SocialPost {
@@ -26,7 +25,6 @@ const initialState: SocialPostState = {
     error: null,
 };
 
-// Async thunk to fetch posts
 export const fetchSocialPosts = createAsyncThunk("socialPosts/fetch", async () => {
     const res = await fetch("https://api-rkbt.onrender.com/data");
     if (!res.ok) throw new Error("Failed to fetch posts");

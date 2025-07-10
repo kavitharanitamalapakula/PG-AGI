@@ -23,7 +23,6 @@ export default function SocialPostGrid() {
                     key={post.postID}
                     className="rounded-xl bg-white dark:bg-gray-900 p-4 shadow-md border border-gray-200 dark:border-gray-700"
                 >
-                    {/* Post Image */}
                     <a href={post.postUrl} target="_blank" rel="noopener noreferrer">
                         <img
                             src={post.postImage}
@@ -32,19 +31,13 @@ export default function SocialPostGrid() {
                             className="rounded-lg mb-3 w-full object-cover h-60"
                         />
                     </a>
-
-                    {/* Post Text */}
                     <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">
                         {post.text?.length > 120 ? post.text.slice(0, 120) + "..." : post.text}
                     </p>
-
-                    {/* Likes & Comments */}
                     <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
                         <span>❤️ {post.likes?.toLocaleString?.() || 0}</span>
                         <span>💬 {post.comments?.toLocaleString?.() || 0}</span>
                     </div>
-
-                    {/* Date */}
                     <p className="text-xs text-gray-400 mt-2">
                         {post.date ? new Date(post.date).toLocaleDateString() : ""}
                     </p>

@@ -1,4 +1,3 @@
-// src/store/slices/appHeaderSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
 
 interface AppHeaderState {

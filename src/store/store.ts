@@ -13,7 +13,7 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage';
 import modalReducer from './modalSlice';
 import appHeaderReducer from "./appHeaderSlice"
 import newsReducer from "./newsSlice";
@@ -30,7 +30,6 @@ const rootReducer = combineReducers({
     news: newsReducer,
     spotify: spotifyReducer,
     socialPosts: socialPostReducer,
-
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

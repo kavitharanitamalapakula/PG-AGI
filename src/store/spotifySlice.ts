@@ -1,4 +1,3 @@
-// src/redux/slices/spotifySlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Track = {
