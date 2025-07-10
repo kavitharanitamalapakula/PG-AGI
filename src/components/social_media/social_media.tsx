@@ -109,7 +109,7 @@ const DraggablePost: React.FC<{
 
 export default function SocialPostGrid() {
     const dispatch = useDispatch<AppDispatch>();
-    const { posts, loading, error } = useSelector((state: RootState) => state.socialPosts);
+    const { posts } = useSelector((state: RootState) => state.socialPosts);
     const [localPosts, setLocalPosts] = useState<SocialPost[]>([]);
 
     useEffect(() => {
@@ -130,10 +130,6 @@ export default function SocialPostGrid() {
         },
         [localPosts]
     );
-
-    const handleDrop = () => {
-        dispatch(reorderPosts(localPosts));
-    };
 
     return (
         <DndProvider backend={HTML5Backend}>

@@ -120,10 +120,6 @@ const NewsCard: React.FC = () => {
     [localArticles]
   );
 
-  const handleDrop = () => {
-    dispatch(reorderArticles(localArticles));
-  };
-
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="p-4 space-y-4 bg-white rounded shadow dark:bg-gray-900">

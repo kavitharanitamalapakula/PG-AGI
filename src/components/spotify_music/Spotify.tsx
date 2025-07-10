@@ -124,7 +124,6 @@ const DraggableTrack: React.FC<{
 
 export default function SpotifyTrackGrid() {
   const dispatch = useDispatch<AppDispatch>();
-  const tracks = useSelector((state: RootState) => state.spotify.tracks);
   const [localTracks, setLocalTracks] = useState<Track[]>([]);
 
   useEffect(() => {
@@ -205,10 +204,6 @@ export default function SpotifyTrackGrid() {
     },
     [localTracks]
   );
-
-  const handleDrop = () => {
-    dispatch(reorderTracks(localTracks));
-  };
 
   return (
     <DndProvider backend={HTML5Backend}>
