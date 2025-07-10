@@ -34,11 +34,12 @@ const DraggableArticle: React.FC<{
   const ref = React.useRef<HTMLAnchorElement>(null);
   const [, drop] = useDrop({
     accept: ItemType,
-    hover(item: DragItem, monitor: DropTargetMonitor) {
+    hover(item: unknown, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.index;
+      const dragItem = item as DragItem;
+      const dragIndex = dragItem.index;
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) {
@@ -59,7 +60,7 @@ const DraggableArticle: React.FC<{
       }
 
       moveArticle(dragIndex, hoverIndex);
-      item.index = hoverIndex;
+      dragItem.index = hoverIndex;
     },
   });
 
