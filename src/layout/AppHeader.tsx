@@ -5,7 +5,7 @@ import { useSidebar } from "@/context/SidebarContext";
 import { toggleApplicationMenu } from "@/store/appHeaderSlice";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
-import { RootState } from "@store"
+import { RootState } from "@/store"
 import { useDispatch, useSelector } from "react-redux";
 
 const AppHeader: React.FC = () => {
