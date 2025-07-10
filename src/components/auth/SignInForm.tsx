@@ -1,18 +1,20 @@
 "use client";
 import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
-import { ChevronLeftIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function SignInForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const [messageType, setMessageType] = useState<"error" | "success" | "">("");
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     function showMessage(message: string, type: "error" | "success") {
@@ -52,6 +54,7 @@ export default function SignInForm() {
             return;
         }
 
+        setLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 showMessage("Login successful!", "success");
@@ -69,11 +72,20 @@ export default function SignInForm() {
                 } else {
                     showMessage("An error occurred: " + error.message, "error");
                 }
+            })
+            .finally(() => {
+                setLoading(false);
             });
     };
 
     return (
-        <div className="flex flex-col flex-1 lg:w-1/2 w-full">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col flex-1 lg:w-1/2 w-full"
+        >
             <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
                 <div>
                     <div className="mb-5 sm:mb-8">
@@ -122,9 +134,10 @@ export default function SignInForm() {
 
                             <button
                                 type="submit"
-                                className="w-full mt-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                                className="w-full mt-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex justify-center items-center"
+                                disabled={loading}
                             >
-                                Sign In
+                                {loading ? <LoadingSpinner size={20} color="#fff" /> : "Sign In"}
                             </button>
                         </form>
                         <div className="mt-5">
@@ -141,6 +154,6 @@ export default function SignInForm() {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

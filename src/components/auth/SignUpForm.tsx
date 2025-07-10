@@ -4,10 +4,11 @@ import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronLeftIcon } from "@/icons";
 import { auth, database } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
+import { motion } from "framer-motion";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export default function SignUpForm() {
   const [fullName, setFullName] = useState("");
@@ -15,6 +16,7 @@ export default function SignUpForm() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const showMessage = (msg: string, type: "success" | "error") => {
@@ -53,6 +55,7 @@ export default function SignUpForm() {
     }
 
     try {
+      setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -66,10 +69,9 @@ export default function SignUpForm() {
       });
 
       showMessage("Your account has been successfully created! 🎉", "success");
-      setEmail("")
-      setFullName("")
-      setPassword("")
-
+      setEmail("");
+      setFullName("");
+      setPassword("");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error: ", error.message);
@@ -78,11 +80,19 @@ export default function SignUpForm() {
         console.error("Unexpected error", error);
         showMessage("Oops! An unexpected error occurred.", "error");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar"
+    >
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
           Sign Up
@@ -140,9 +150,10 @@ export default function SignUpForm() {
 
           <button
             type="submit"
-            className="w-full mt-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="w-full mt-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex justify-center items-center"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? <LoadingSpinner size={20} color="#fff" /> : "Sign Up"}
           </button>
         </form>
 
@@ -153,6 +164,6 @@ export default function SignUpForm() {
           </Link>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
