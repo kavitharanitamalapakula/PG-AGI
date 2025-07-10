@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchSocialPosts } from "@/store/socialPostSlice";
@@ -24,11 +25,13 @@ export default function SocialPostGrid() {
                     className="rounded-xl bg-white dark:bg-gray-900 p-4 shadow-md border border-gray-200 dark:border-gray-700"
                 >
                     <a href={post.postUrl} target="_blank" rel="noopener noreferrer">
-                        <img
+                        <Image
                             src={post.postImage}
                             alt="Post Image Not Available"
                             loading="lazy"
                             className="rounded-lg mb-3 w-full object-cover h-60"
+                            width={400}
+                            height={240}
                         />
                     </a>
                     <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">

@@ -7,6 +7,29 @@ import { RootState, AppDispatch } from "@/store/store";
 import { setTracks } from "@/store/spotifySlice";
 import { FaPlay } from "react-icons/fa";
 
+interface Artist {
+  name: string;
+  uri: string;
+}
+
+interface Album {
+  id: string;
+  name: string;
+  images: { url: string; height?: number; width?: number }[];
+  artists: Artist[];
+}
+
+interface Track {
+  id: string;
+  name: string;
+  album: {
+    name: string;
+    images: { url: string; height?: number; width?: number }[];
+  };
+  artists: Artist[];
+  preview_url: string | null;
+}
+
 export default function SpotifyTrackGrid() {
   const dispatch = useDispatch<AppDispatch>();
   const tracks = useSelector((state: RootState) => state.spotify.tracks);
@@ -53,16 +76,16 @@ export default function SpotifyTrackGrid() {
           }
         );
 
-        const albums = res.data.albums.items;
+        const albums: Album[] = res.data.albums.items;
 
-        const allTracks = albums.map((album: any) => ({
+        const allTracks: Track[] = albums.map((album) => ({
           id: album.id,
           name: album.name,
           album: {
             name: album.name,
             images: album.images,
           },
-          artists: album.artists.map((artist: any) => ({
+          artists: album.artists.map((artist) => ({
             name: artist.name,
             uri: artist.uri,
           })),

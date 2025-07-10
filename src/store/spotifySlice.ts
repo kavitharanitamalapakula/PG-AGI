@@ -7,7 +7,7 @@ type Track = {
         images: { url: string }[];
         name: string;
     };
-    artists: { name: string }[];
+    artists: { name: string; uri: string }[];
     preview_url: string | null;
 };
 
