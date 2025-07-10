@@ -42,4 +42,4 @@ This project is a "Personalized Content Dashboard" built with React, Redux, Next
 - User preferences and dark mode settings can be persisted using Redux or localStorage (depending on implementation).  
 
 
-Thank you for reviewing this project. For any questions or feedback, please open an issue or contact the maintainer.
+Thank you for reviewing this project.
