@@ -108,16 +108,16 @@ const NewsCard: React.FC = () => {
   const moveArticle = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       const draggedArticle = localArticles[dragIndex];
-      setLocalArticles(
-        update(localArticles, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, draggedArticle],
-          ],
-        })
-      );
+      const updatedArticles = update(localArticles, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, draggedArticle],
+        ],
+      });
+      setLocalArticles(updatedArticles);
+      dispatch(reorderArticles(updatedArticles));
     },
-    [localArticles]
+    [localArticles, dispatch]
   );
 
   return (

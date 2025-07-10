@@ -127,8 +127,9 @@ export default function SocialPostGrid() {
             updatedPosts.splice(dragIndex, 1);
             updatedPosts.splice(hoverIndex, 0, draggedPost);
             setLocalPosts(updatedPosts);
+            dispatch(reorderPosts(updatedPosts));
         },
-        [localPosts]
+        [localPosts, dispatch]
     );
 
     return (

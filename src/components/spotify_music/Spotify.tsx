@@ -2,8 +2,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
 import { setTracks, reorderTracks } from "@/store/spotifySlice";
 import { DndProvider, useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -201,8 +201,9 @@ export default function SpotifyTrackGrid() {
       updatedTracks.splice(dragIndex, 1);
       updatedTracks.splice(hoverIndex, 0, draggedTrack);
       setLocalTracks(updatedTracks);
+      dispatch(reorderTracks(updatedTracks));
     },
-    [localTracks]
+    [localTracks, dispatch]
   );
 
   return (
