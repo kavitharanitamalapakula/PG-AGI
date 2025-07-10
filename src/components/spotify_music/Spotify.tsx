@@ -49,6 +49,7 @@ const DraggableTrack: React.FC<{
   const [, drop] = useDrop({
     accept: ItemType,
     hover(item: unknown, monitor: DropTargetMonitor) {
+      console.log("hover called", { item, index });
       if (!ref.current) {
         return;
       }
@@ -196,6 +197,7 @@ export default function SpotifyTrackGrid() {
 
   const moveTrack = useCallback(
     (dragIndex: number, hoverIndex: number) => {
+      console.log("moveTrack called", { dragIndex, hoverIndex });
       const draggedTrack = localTracks[dragIndex];
       const updatedTracks = [...localTracks];
       updatedTracks.splice(dragIndex, 1);
@@ -216,6 +218,6 @@ export default function SpotifyTrackGrid() {
           ))}
         </div>
       </div>
-    </DndProvider >
+    </DndProvider>
   );
 }
