@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
-import { MdWhatshot } from "react-icons/md";
-import { MdAnalytics } from "react-icons/md";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 
 import {
@@ -14,7 +12,6 @@ import {
   HorizontaLDots,
   UserCircleIcon,
 } from "../icons/index";
-import { FaHeart } from "react-icons/fa";
 
 type NavItem = {
   name: string;
