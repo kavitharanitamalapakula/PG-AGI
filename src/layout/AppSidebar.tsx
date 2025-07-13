@@ -47,33 +47,13 @@ const navItems: NavItem[] = [
 
 ];
 
-const othersItems: NavItem[] = [
-  {
-    icon: <FaHeart />,
-    name: "Favorites",
-    path: "/favorites"
-  },
-  {
-    icon: <MdWhatshot />,
-
-    name: "Trending",
-    path: "/trending"
-  },
-  {
-    icon: <MdAnalytics />,
-    name: "Analytics",
-    path: "/analytics"
-  },
-
-];
-
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
 
   const renderMenuItems = (
     navItems: NavItem[],
-    menuType: "main" | "others"
+    menuType: "main"
   ) => (
     <ul className="flex flex-col gap-4">
       {navItems.map((nav, index) => (
@@ -199,8 +179,8 @@ const AppSidebar: React.FC = () => {
 
   useEffect(() => {
     let submenuMatched = false;
-    ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
+    ["main"].forEach((menuType) => {
+      const items = navItems
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {
@@ -233,7 +213,7 @@ const AppSidebar: React.FC = () => {
     }
   }, [openSubmenu]);
 
-  const handleSubmenuToggle = (index: number, menuType: "main" | "others") => {
+  const handleSubmenuToggle = (index: number, menuType: "main") => {
     setOpenSubmenu((prevOpenSubmenu) => {
       if (
         prevOpenSubmenu &&
@@ -301,13 +281,7 @@ const AppSidebar: React.FC = () => {
                   : "justify-start"
                   }`}
               >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Personal"
-                ) : (
-                  <HorizontaLDots />
-                )}
               </h2>
-              {renderMenuItems(othersItems, "others")}
             </div>
           </div>
         </nav>
